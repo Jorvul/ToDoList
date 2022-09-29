@@ -4,7 +4,10 @@ const { urlencoded } = require("body-parser");
 const { post } = require("express/lib/response");
 
 const app = express();
-let items=[];
+
+let items=["Buy Food", "Cook Food", "Eat Food"];
+let workItems = [];
+
 app.set("view engine", "ejs");
 
 app.use(express.json());
@@ -22,7 +25,7 @@ app.get("/", function(req,res){
 
     let day = today.toLocaleDateString("en-US", options);
 
-    res.render("list", {kindOfDay:day, newItemList:items}, "/styles.css")
+    res.render("list", {listTitle:day, newItemList:items})
 
 })
 
@@ -31,6 +34,14 @@ app.post("/", function(req,res) {
     items.push(item)
     //console.log(expression)
     res.redirect("/");
+})
+
+app.get("/work", function(req,res){
+    res.render("list", {listTitle:"Work List", newItemList: workItems})
+})
+
+app.post("/work", function(req,res){
+    
 })
 
 app.listen(4000,function(){
